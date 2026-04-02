@@ -1,25 +1,26 @@
-{{!< default}}
-
-{{#post}}
+{{#*inline "body"}}
+{{#with post}}
 
 <main class="gh-main gh-outer">
     <div class="gh-inner">
         <article class="gh-article {{post_class}}">
-            {{#match @page.show_title_and_feature_image}}
+            {{#match show_title_and_feature_image}}
                 <header class="gh-article-header gh-canvas">
                     <h1 class="gh-article-title">{{title}}</h1>
                     {{#if custom_excerpt}}
                         <p class="gh-article-excerpt">{{custom_excerpt}}</p>
                     {{/if}}
-                    {{> "feature-image"}}
+                    {{> partials/feature-image}}
                 </header>
             {{/match}}
 
             <section class="gh-content gh-canvas">
-                {{content}}
+                {{{content}}}
             </section>
         </article>
     </div>
 </main>
 
-{{/post}}
+{{/with}}
+{{/inline}}
+{{> default}}

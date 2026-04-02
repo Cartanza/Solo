@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{@site.locale}}">
+<html lang="{{@root.site.locale}}">
 
 <head>
     <meta charset="utf-8">
@@ -10,14 +10,14 @@
     <script src="{{asset "built/main.min.js"}}"></script>
     
     {{#is "home"}}
-        {{#if @site.cover_image}}
-            <link rel="preload" as="image" href="{{@site.cover_image}}">
+        {{#if @root.site.cover_image}}
+            <link rel="preload" as="image" href="{{@root.site.cover_image}}">
         {{/if}}
     {{/is}}
 
     <style>
         :root {
-            --background-color: {{@custom.background_color}}
+            --background-color: {{@root.custom.background_color}}
         }
     </style>
 
@@ -38,55 +38,56 @@
     {{ghost_head}}
 </head>
 
-<body class="{{body_class}}{{{block "body_class"}}} is-head-{{#match @custom.navigation_layout "Logo on the left"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.typography "Elegant serif"}} has-serif-font{{/match}}{{#match @custom.typography "Consistent mono"}} has-mono-font{{/match}}{{#match @custom.post_feed_layout "Classic"}} has-classic-feed{{/match}}{{#match @custom.post_feed_layout "Typographic"}} has-typographic-feed{{/match}}{{#match @custom.post_feed_layout "Parallax"}} has-parallax-feed{{/match}}">
+<body class="{{body_class}}{{{block "body_class"}}} is-head-{{#match @root.custom.navigation_layout "Logo on the left"}}left-logo{{else match @root.custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @root.custom.typography "Elegant serif"}} has-serif-font{{/match}}{{#match @root.custom.typography "Consistent mono"}} has-mono-font{{/match}}{{#match @root.custom.post_feed_layout "Classic"}} has-classic-feed{{/match}}{{#match @root.custom.post_feed_layout "Typographic"}} has-typographic-feed{{/match}}{{#match @root.custom.post_feed_layout "Parallax"}} has-parallax-feed{{/match}}">
 <div class="gh-site">
 
     <header id="gh-head" class="gh-head gh-outer">
         <div class="gh-head-inner gh-inner">
             <div class="gh-head-brand">
                 <div class="gh-head-brand-wrapper">
-                    <a class="gh-head-logo" href="{{@site.url}}">
-                        {{#if @site.logo}}
-                            <img src="{{@site.logo}}" alt="{{@site.title}}">
+                    <a class="gh-head-logo" href="{{@root.site.url}}">
+                        {{#if @root.site.logo}}
+                            <img src="{{@root.site.logo}}" alt="{{@root.site.title}}">
                         {{else}}
-                            {{@site.title}}
+                            {{@root.site.title}}
                         {{/if}}
                     </a>
                 </div>
-                <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> partials/icons/search}}</button>
                 <button class="gh-burger"></button>
             </div>
 
             <nav class="gh-head-menu">
                 {{navigation}}
-                {{#unless @site.members_enabled}}
-                    {{#match @custom.navigation_layout "Stacked"}}
-                        <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                {{#unless @root.site.members_enabled}}
+                    {{#match @root.custom.navigation_layout "Stacked"}}
+                        <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> partials/icons/search}}</button>
                     {{/match}}
                 {{/unless}}
             </nav>
 
             <div class="gh-head-actions">
-                {{#unless @site.members_enabled}}
-                    {{^match @custom.navigation_layout "Stacked"}}
-                        <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                {{#unless @root.site.members_enabled}}
+                    {{#match @root.custom.navigation_layout "!=" "Stacked"}}
+                        <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> partials/icons/search}}</button>
                     {{/match}}
                 {{else}}
-                    <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                    <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> partials/icons/search}}</button>
                     <div class="gh-head-members">
-                        {{#unless @member}}
-                            {{#unless @site.members_invite_only}}
-                                <a class="gh-head-link" href="#/portal/signin" data-portal="signin">Sign in</a>
-                                <a class="gh-head-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                        {{#unless @root.member}}
+                            {{#unless @root.site.members_invite_only}}
+                                <a class="gh-head-link" href="/#/portal/signin" data-portal="signin">Sign in</a>
+                                <a class="gh-head-button" href="/#/portal/signup" data-portal="signup">Subscribe</a>
                             {{else}}
-                                <a class="gh-head-button" href="#/portal/signin" data-portal="signin">Sign in</a>
+                                <a class="gh-head-button" href="/#/portal/signin" data-portal="signin">Sign in</a>
                             {{/unless}}
                         {{else}}
                             <a class="gh-head-button" href="/account">Account</a>
                         {{/unless}}
+                        {{#if @root.site.commerce_enabled}}
                         <div class="cartanza-cart-container">
                             <i class="fs-12 fa fa-shopping-bag" aria-hidden="true" style="color:#666666;font-size: 2em;margin-top: 15px;"></i>
-                            <span class="header-icons-noti cartanza-cart-total" style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;justify-content: center;align-items: center;width: 20px;height: 20px;border-radius: 50%;background-color: #111111;color: white;font-size: 12px;position: relative;top: -30px;right: -20px;" >3</span>
+                            <span class="header-icons-noti cartanza-cart-total" style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;justify-content: center;align-items: center;width: 20px;height: 20px;border-radius: 50%;background-color: #111111;color: white;font-size: 12px;position: relative;top: -30px;right: -20px;" >0</span>
                             <div class="cartanza-header-cart">
                                 <ul class="header-cart-wrapitem" style="max-height: 270px;overflow: auto;">
                                     <li class="header-cart-item" style="text-align: center;">
@@ -108,17 +109,16 @@
                                     <a href="/checkout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="border-radius:20px;background-color:#222222;align-items: center;color: white;text-transform:uppercase;padding:12px 20px;">
                                         Checkout
                                     </a>
-                                    </div>
                                 </div>
-                                </div>
-                                </div>
+                            </div>
                         </div>
+                        {{/if}}
                 {{/unless}}
             </div>
         </div>
     </header>
 
-    {{{body}}}
+    {{~> body}}
 
     <footer class="gh-foot gh-outer">
         <div class="gh-foot-inner gh-inner">
@@ -127,10 +127,10 @@
             </nav>
 
             <div class="gh-copyright">
-                {{#unless @custom.footer_text}}
-                    {{@site.title}} © {{date format="YYYY"}}. <a href="https://cartanza.com/" target="_blank" rel="noopener">Powered by Cartanza</a>
+                {{#unless @root.custom.footer_text}}
+                    {{@root.site.title}} © {{date format="YYYY"}}. <a href="https://cartanza.com/" target="_blank" rel="noopener">Powered by Cartanza</a>
                 {{else}}
-                    {{@custom.footer_text}}
+                    {{@root.custom.footer_text}}
                 {{/unless}}
             </div>
         </div>
@@ -139,47 +139,69 @@
 </div>
 
 {{#is "post, page"}}
-    {{> "pswp"}}
+    {{> partials/pswp}}
 {{/is}}
 
 <script>
     // Select the cart icon and header cart elements
     const cartIcon = document.querySelector('i.fs-12.fa.fa-shopping-bag');
-    const headerCart = document.querySelector('div.cartanza-header-cart');
+    if(cartIcon) {
+        const headerCart = document.querySelector('div.cartanza-header-cart');
 
-    document.addEventListener('click', (event) => {
-        if (cartIcon.contains(event.target)) {
-            headerCart.classList.toggle('show-header-dropdown');
-        } else if (!headerCart.contains(event.target)) {
-            headerCart.classList.remove('show-header-dropdown');
+        document.addEventListener('click', (event) => {
+            if (cartIcon.contains(event.target)) {
+                headerCart.classList.toggle('show-header-dropdown');
+            } else if (!headerCart.contains(event.target)) {
+                headerCart.classList.remove('show-header-dropdown');
+            }
+        });
+        window.onload = function() {
+            getCart();
         }
-    });
-    window.onload = function() {
-        getCart();
     }
 </script>
 <script>
-    async function logout(event) {
-    event.preventDefault();
-    try {
-        const response = await fetch('/members/api/session', {
-            method: 'DELETE', // HTTP method
-            headers: {
-                'Content-Type': 'application/json' // Specify JSON payload
-            },
-            body: JSON.stringify({ all: false }) // Convert the data to JSON string
-        });
+    let wasInPortal = window.location.hash.includes('/portal/');
 
-        if (response.ok) {
-            console.log('Session logged out successfully');
-            window.location.href = '/';
-        } else {
-            console.error('Failed to logout of session:', response.status, response.statusText);
+    function checkPortal() {
+        const isInPortal = window.location.hash.includes('/portal/');
+        if (isInPortal) {
+            wasInPortal = true;
+        } else if (wasInPortal) {
+            wasInPortal = false;
+            window.location.reload();
         }
-    } catch (error) {
-        console.error('Error:', error);
     }
-}
+
+    window.addEventListener('hashchange', () => {
+        checkPortal();
+    });
+    
+    // Ghost Portal often uses history.replaceState to close, which doesn't trigger hashchange.
+    // We check the hash every 500ms while we believe the portal is open.
+    setInterval(checkPortal, 500);
+
+    async function logout(event) {
+        event.preventDefault();
+        try {
+            const response = await fetch('/members/api/session/', {
+                method: 'DELETE', // HTTP method
+                headers: {
+                    'Content-Type': 'application/json' // Specify JSON payload
+                },
+                body: JSON.stringify({ all: false }) // Convert the data to JSON string
+            });
+
+            if (response.ok) {
+                console.log('Session logged out successfully');
+                window.location.href = '/';
+            } else {
+                console.error('Failed to logout of session:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 </script>
 {{ghost_foot}}
 

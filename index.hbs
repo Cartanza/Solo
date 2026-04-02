@@ -1,14 +1,13 @@
-{{!< default}}
-
-<section class="gh-about gh-outer{{#match @custom.header_section_layout "!=" "Typographic profile"}}{{#unless @site.cover_image}} no-image{{/unless}}{{else}}{{#unless @site.icon}} no-image{{/unless}}{{/match}}">
+{{#*inline "body"}}
+<section class="gh-about gh-outer{{#match @root.custom.header_section_layout "!=" "Typographic profile"}}{{#unless @root.site.cover_image}} no-image{{/unless}}{{else}}{{#unless @root.site.icon}} no-image{{/unless}}{{/match}}">
     <div class="gh-about-inner gh-inner">
-        {{#match @custom.header_section_layout "!=" "Typographic profile"}}
-            {{#if @site.cover_image}}
-                <img class="gh-about-image" src="{{@site.cover_image}}" alt="{{@site.title}}">
+        {{#match @root.custom.header_section_layout "!=" "Typographic profile"}}
+            {{#if @root.site.cover_image}}
+                <img class="gh-about-image" src="{{@root.site.cover_image}}" alt="{{@root.site.title}}">
             {{/if}}
         {{else}}
-            {{#if @site.icon}}
-                <img class="gh-about-image" src="{{@site.icon}}" alt="{{@site.title}}">
+            {{#if @root.site.icon}}
+                <img class="gh-about-image" src="{{@root.site.icon}}" alt="{{@root.site.title}}">
             {{/if}}
         {{/match}}
         <script>
@@ -26,14 +25,14 @@
         </script>
         <div class="gh-about-content">
             <div class="gh-about-content-inner">
-                {{#if @custom.primary_header}}
-                    <h1 class="gh-about-primary">{{{@custom.primary_header}}}</h1>
+                {{#if @root.custom.primary_header}}
+                    <h1 class="gh-about-primary">{{{@root.custom.primary_header}}}</h1>
                 {{/if}}
-                {{#if @custom.secondary_header}}
-                    <p class="gh-about-secondary">{{{@custom.secondary_header}}}</p>
+                {{#if @root.custom.secondary_header}}
+                    <p class="gh-about-secondary">{{{@root.custom.secondary_header}}}</p>
                 {{/if}}
-                {{#if @site.members_enabled}}
-                    {{#unless @member}}
+                {{#if @root.site.members_enabled}}
+                    {{#unless @root.member}}
                         <div class="gh-subscribe-input" data-portal>
                             jamie@example.com
                             <span class="gh-btn gh-primary-btn">Subscribe</span>
@@ -48,9 +47,11 @@
 <main class="gh-main gh-outer">
     <div class="gh-feed gh-inner">
         {{#foreach posts}}
-            {{> "loop"}}
+            {{> partials/loop}}
         {{/foreach}}
     </div>
 </main>
 
-{{#contentFor "body_class"}}{{#match @custom.header_section_layout "Side by side"}} has-side-about{{/match}}{{#match @custom.header_section_layout "Large background"}}{{#if @site.cover_image}} is-head-transparent has-background-about{{else}} has-side-about{{/if}}{{/match}}{{#match @custom.header_section_layout "Typographic profile"}}{{#if @site.icon}} has-typographic-about{{else}} has-side-about{{/if}}{{/match}}{{/contentFor}}
+{{#contentFor "body_class"}}{{#match @root.custom.header_section_layout "Side by side"}} has-side-about{{/match}}{{#match @root.custom.header_section_layout "Large background"}}{{#if @root.site.cover_image}} is-head-transparent has-background-about{{else}} has-side-about{{/if}}{{/match}}{{#match @root.custom.header_section_layout "Typographic profile"}}{{#if @root.site.icon}} has-typographic-about{{else}} has-side-about{{/if}}{{/match}}{{/contentFor}}
+{{/inline}}
+{{> default}}

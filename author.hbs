@@ -1,7 +1,6 @@
-{{!< default}}
-
+{{#*inline "body"}}
 <main class="gh-main gh-outer">
-    {{#author}}
+    {{#with author}}
         <section class="gh-article gh-inner">
             <header class="gh-article-header">
                 {{#if profile_image}}
@@ -21,18 +20,20 @@
                         <a class="gh-author-social-link" href="{{website}}" target="_blank" rel="noopener">{{website}}</a>
                     {{/if}}
                     {{#if twitter}}
-                        <a class="gh-author-social-link" href="{{twitter_url}}" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
+                        <a class="gh-author-social-link" href="{{twitter_url}}" target="_blank" rel="noopener">{{> partials/icons/twitter}}</a>
                     {{/if}}
                     {{#if facebook}}
-                        <a class="gh-author-social-link" href="{{facebook_url}}" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>
+                        <a class="gh-author-social-link" href="{{facebook_url}}" target="_blank" rel="noopener">{{> partials/icons/facebook}}</a>
                     {{/if}}
                 </div>
             </footer>
         </section>
-    {{/author}}
-    <div class="gh-feed{{#match @custom.header_section_layout "!=" "Large background"}} gh-inner{{/match}}">
+    {{/with}}
+    <div class="gh-feed{{#match @root.custom.header_section_layout "!=" "Large background"}} gh-inner{{/match}}">
         {{#foreach posts}}
-            {{> "loop"}}
+            {{> partials/loop}}
         {{/foreach}}
     </div>
 </main>
+{{/inline}}
+{{> default}}

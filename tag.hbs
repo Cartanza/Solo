@@ -1,20 +1,21 @@
-{{!< default}}
-
+{{#*inline "body"}}
 <main class="gh-main gh-outer">
-    {{#tag}}
+    {{#with tag}}
         <section class="gh-article gh-inner">
             <header class="gh-article-header">
                 <h1 class="gh-article-title">{{name}}</h1>
                 {{#if description}}
                     <p class="gh-article-excerpt">{{description}}</p>
                 {{/if}}
-                {{> "feature-image"}}
+                {{> partials/feature-image}}
             </header>
         </section>
-    {{/tag}}
-    <div class="gh-feed{{#match @custom.header_section_layout "!=" "Large background"}} gh-inner{{/match}}">
+    {{/with}}
+    <div class="gh-feed{{#match @root.custom.header_section_layout "!=" "Large background"}} gh-inner{{/match}}">
         {{#foreach posts}}
-            {{> "loop"}}
+            {{> partials/loop}}
         {{/foreach}}
     </div>
 </main>
+{{/inline}}
+{{> default}}
